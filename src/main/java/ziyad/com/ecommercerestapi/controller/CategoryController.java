@@ -2,6 +2,7 @@ package ziyad.com.ecommercerestapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ziyad.com.ecommercerestapi.payload.CategoryDto;
 import ziyad.com.ecommercerestapi.service.CategoryService;
@@ -18,6 +19,7 @@ public class CategoryController {
     }
     //create category
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto){
         return new ResponseEntity<>(categoryService.createCategory(categoryDto), HttpStatus.CREATED);
     }
@@ -33,11 +35,13 @@ public class CategoryController {
     }
     //update Category
     @PutMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto categoryDto,@PathVariable("id") Long categoryId){
         return ResponseEntity.ok(categoryService.updateCategory(categoryDto,categoryId));
     }
     //delete Category
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteCategory(@PathVariable("id") Long categoryId){
         categoryService.deleteCategory(categoryId);
         return ResponseEntity.ok("Category deleted sucessfully");

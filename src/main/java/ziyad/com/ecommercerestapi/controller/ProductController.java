@@ -2,6 +2,7 @@ package ziyad.com.ecommercerestapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ziyad.com.ecommercerestapi.payload.ProductDto;
 import ziyad.com.ecommercerestapi.service.ProductService;
@@ -19,6 +20,7 @@ public class ProductController {
     }
     //create product
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto){
         return new ResponseEntity<>(productService.createProduct(productDto), HttpStatus.CREATED);
     }
@@ -35,11 +37,13 @@ public class ProductController {
     }
     //update product
     @PutMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto,@PathVariable("id")Long productId){
         return ResponseEntity.ok(productService.updateProduct(productDto,productId));
     }
     //delete product
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteProduct(@PathVariable("id") Long productId){
         productService.deleteProduct(productId);
         return ResponseEntity.ok("Product deleted successfully");
