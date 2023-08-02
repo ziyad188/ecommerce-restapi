@@ -1,4 +1,4 @@
-package ziyad.com.ecommercerestapi.dto;
+package ziyad.com.ecommercerestapi.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginDto {
-    private String usernameOrEmail;
+public class CategoryDto {
+    private Long id;
+    private String categoryName;
+    private String imageUrl;
 
-    private String password;
 }
-

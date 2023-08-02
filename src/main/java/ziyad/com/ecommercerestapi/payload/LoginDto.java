@@ -1,4 +1,4 @@
-package ziyad.com.ecommercerestapi.dto;
+package ziyad.com.ecommercerestapi.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignUpDto {
-    private String username;
-
-    private String email;
+public class LoginDto {
+    private String usernameOrEmail;
 
     private String password;
 }
+

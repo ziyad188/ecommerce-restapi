@@ -1,12 +1,6 @@
-package ziyad.com.ecommercerestapi.dto;
+package ziyad.com.ecommercerestapi.payload;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import ziyad.com.ecommercerestapi.entity.ProductCategory;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

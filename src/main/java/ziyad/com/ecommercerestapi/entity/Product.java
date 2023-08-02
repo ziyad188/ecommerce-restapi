@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,7 +25,7 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     //in many to one mapping we have to join table in child becuase here post is child
     @JoinColumn(name = "category_id")
-    private ProductCategory category;
+    private Category category;
 
     private String sku;
 
