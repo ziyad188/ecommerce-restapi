@@ -17,9 +17,6 @@ import ziyad.com.ecommercerestapi.entity.User;
 @NoArgsConstructor
 public class ReviewDto {
     private Long id;
-    private Product product;
-
-    private User user;
     private int rating;
 
     private String comment;
