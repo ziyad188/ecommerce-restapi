@@ -1,5 +1,7 @@
 package ziyad.com.ecommercerestapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,18 +50,20 @@ public class Product {
     @Column(name = "last_updated")
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Cart> carts;
-    // One-to-Many relationship with the OrderItem entity
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<OrderItem> orderItems;
-
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Set<Cart> carts;
+//    // One-to-Many relationship with the OrderItem entity
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Set<OrderItem> orderItems;
+//
     // One-to-Many relationship with the Review entity
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Review> reviews;
 
     // One-to-Many relationship with the Wishlist entity
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+
     private Set<Wishlist> wishlists;
 
 
