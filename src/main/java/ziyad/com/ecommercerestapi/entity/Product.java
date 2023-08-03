@@ -50,8 +50,9 @@ public class Product {
     @Column(name = "last_updated")
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
-//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Set<Cart> carts;
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Cart> carts;
 //    // One-to-Many relationship with the OrderItem entity
 //    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private Set<OrderItem> orderItems;
