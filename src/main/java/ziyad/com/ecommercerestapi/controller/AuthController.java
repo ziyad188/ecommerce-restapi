@@ -1,5 +1,5 @@
-package ziyad.com.ecommercerestapi.controller;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,17 +19,33 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
-    //rest api for login
-    @PostMapping(value = {"/login","/signin"})
-    public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDto loginDto){
+
+    @Operation(
+            summary = "User login",
+            description = "Authenticate user and generate JWT token."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Login successful"
+    )
+    @PostMapping(value = {"/login", "/signin"})
+    public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDto loginDto) {
         String token = authService.login(loginDto);
         JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
         jwtAuthResponse.setAccessToken(token);
         return ResponseEntity.ok(jwtAuthResponse);
-
     }
-    @PostMapping(value = {"/register","/signup"})
-    public ResponseEntity<String> register(@RequestBody SignUpDto signUpDto){
+
+    @Operation(
+            summary = "User registration",
+            description = "Register a new user."
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Registration successful"
+    )
+    @PostMapping(value = {"/register", "/signup"})
+    public ResponseEntity<String> register(@RequestBody SignUpDto signUpDto) {
         String response = authService.register(signUpDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

@@ -1,5 +1,6 @@
 package ziyad.com.ecommercerestapi.controller;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,39 +15,79 @@ import java.util.List;
 public class ProductController {
     private ProductService productService;
 
-
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-    //create product
+
+    @Operation(
+            summary = "Create a product",
+            description = "Create a new product."
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Product created successfully"
+    )
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto){
+    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
         return new ResponseEntity<>(productService.createProduct(productDto), HttpStatus.CREATED);
     }
 
-    //get product by id
+    @Operation(
+            summary = "Get a product by ID",
+            description = "Get a product by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Product found"
+    )
     @GetMapping("{id}")
-    public ResponseEntity<ProductDto> getProduct(@PathVariable("id")Long productId){
+    public ResponseEntity<ProductDto> getProduct(@PathVariable("id") Long productId) {
         return ResponseEntity.ok(productService.getProduct(productId));
     }
-    //get all products
+
+    @Operation(
+            summary = "Get all products",
+            description = "Get all products."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Products found"
+    )
     @GetMapping()
-    public ResponseEntity<List<ProductDto>> getAllProduct(){
+    public ResponseEntity<List<ProductDto>> getAllProduct() {
         return ResponseEntity.ok(productService.getAllProduct());
     }
-    //update product
+
+    @Operation(
+            summary = "Update a product",
+            description = "Update a product by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Product updated successfully"
+    )
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto,@PathVariable("id")Long productId){
-        return ResponseEntity.ok(productService.updateProduct(productDto,productId));
+    public ResponseEntity<ProductDto> updateProduct(
+            @RequestBody ProductDto productDto,
+            @PathVariable("id") Long productId
+    ) {
+        return ResponseEntity.ok(productService.updateProduct(productDto, productId));
     }
-    //delete product
+
+    @Operation(
+            summary = "Delete a product",
+            description = "Delete a product by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Product deleted successfully"
+    )
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> deleteProduct(@PathVariable("id") Long productId){
+    public ResponseEntity<String> deleteProduct(@PathVariable("id") Long productId) {
         productService.deleteProduct(productId);
         return ResponseEntity.ok("Product deleted successfully");
-
     }
 }

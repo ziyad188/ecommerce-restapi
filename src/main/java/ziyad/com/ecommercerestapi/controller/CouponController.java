@@ -1,6 +1,6 @@
 package ziyad.com.ecommercerestapi.controller;
-
-import lombok.Getter;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,36 +18,77 @@ public class CouponController {
     public CouponController(CouponService couponService) {
         this.couponService = couponService;
     }
-    //create coupon
 
+    @Operation(
+            summary = "Create a coupon",
+            description = "Create a new coupon."
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Coupon created successfully"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<CouponDto> createCoupon(@RequestBody CouponDto couponDto){
-        return new  ResponseEntity<>(couponService.createCoupon(couponDto), HttpStatus.CREATED);
+    public ResponseEntity<CouponDto> createCoupon(@RequestBody CouponDto couponDto) {
+        return new ResponseEntity<>(couponService.createCoupon(couponDto), HttpStatus.CREATED);
     }
-    //get by id
 
+    @Operation(
+            summary = "Get a coupon by ID",
+            description = "Get a coupon by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Coupon found"
+    )
     @GetMapping("{id}")
-    public ResponseEntity<CouponDto> getCoupon(@PathVariable("id") Long couponId){
+    public ResponseEntity<CouponDto> getCoupon(@PathVariable("id") Long couponId) {
         return ResponseEntity.ok(couponService.getCouponById(couponId));
     }
-    //get all coupon
+
+    @Operation(
+            summary = "Get all coupons",
+            description = "Get all coupons."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Coupons found"
+    )
     @GetMapping()
     @PreAuthorize("hasRole('ADMIN')")
-    public  ResponseEntity<List<CouponDto>> getAllCoupon(){
+    public ResponseEntity<List<CouponDto>> getAllCoupon() {
         return ResponseEntity.ok(couponService.getAllCoupon());
     }
-    //update Coupon
+
+    @Operation(
+            summary = "Update a coupon",
+            description = "Update a coupon by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Coupon updated successfully"
+    )
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public  ResponseEntity<CouponDto> updateCoupon(@RequestBody CouponDto couponDto,@PathVariable("id") Long couponId){
-        return ResponseEntity.ok(couponService.updateCoupon(couponDto,couponId));
+    public ResponseEntity<CouponDto> updateCoupon(
+            @RequestBody CouponDto couponDto,
+            @PathVariable("id") Long couponId
+    ) {
+        return ResponseEntity.ok(couponService.updateCoupon(couponDto, couponId));
     }
-    //delete Coupon
+
+    @Operation(
+            summary = "Delete a coupon",
+            description = "Delete a coupon by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Coupon deleted successfully"
+    )
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> deleteCoupon(@PathVariable("id") Long couponId){
+    public ResponseEntity<String> deleteCoupon(@PathVariable("id") Long couponId) {
         couponService.deleteCoupon(couponId);
-        return ResponseEntity.ok("Coupon deleted sucessfully");
+        return ResponseEntity.ok("Coupon deleted successfully");
     }
 }

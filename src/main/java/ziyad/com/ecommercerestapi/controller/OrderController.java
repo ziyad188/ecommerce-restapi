@@ -1,5 +1,6 @@
 package ziyad.com.ecommercerestapi.controller;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,38 +21,90 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    //place order
+    @Operation(
+            summary = "Place an order",
+            description = "Place a new order for a user."
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Order placed successfully"
+    )
     @PostMapping("{id}")
-    public ResponseEntity<ResponseOrderDto> placeOrder(@PathVariable("id") Long userId, @RequestParam Long aid, @RequestBody PaymentRequestDto pymentRequestDto){
-        return new ResponseEntity<>(orderService.placeOrder(userId,aid,pymentRequestDto), HttpStatus.CREATED);
+    public ResponseEntity<ResponseOrderDto> placeOrder(
+            @PathVariable("id") Long userId,
+            @RequestParam Long aid,
+            @RequestBody PaymentRequestDto paymentRequestDto
+    ) {
+        return new ResponseEntity<>(orderService.placeOrder(userId, aid, paymentRequestDto), HttpStatus.CREATED);
     }
 
-    //get all order
+    @Operation(
+            summary = "Get all orders for a user",
+            description = "Get all orders for a specific user by their ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Orders found"
+    )
     @GetMapping("user/{id}")
-    public ResponseEntity<List<ResponseOrderDto>> getAllOrderByUserId(@PathVariable("id") Long userId){
+    public ResponseEntity<List<ResponseOrderDto>> getAllOrderByUserId(@PathVariable("id") Long userId) {
         return ResponseEntity.ok(orderService.getUserAllOrder(userId));
     }
-    //get order by specific id
+
+    @Operation(
+            summary = "Get an order by ID",
+            description = "Get an order by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Order found"
+    )
     @GetMapping("{id}")
-    public ResponseEntity<ResponseOrderDto> getOrderById(@PathVariable("id") Long orderId){
+    public ResponseEntity<ResponseOrderDto> getOrderById(@PathVariable("id") Long orderId) {
         return ResponseEntity.ok(orderService.getOrderById(orderId));
     }
 
-    //get all orders
+    @Operation(
+            summary = "Get all orders",
+            description = "Get all orders."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Orders found"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public ResponseEntity<List<ResponseOrderDto>> getAllOrder(){
+    public ResponseEntity<List<ResponseOrderDto>> getAllOrder() {
         return ResponseEntity.ok(orderService.getAllOrder());
     }
-    //update status
+
+    @Operation(
+            summary = "Update order status",
+            description = "Update the status of an order by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Order status updated successfully"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{id}")
-    public ResponseEntity<UpdateStatusDto> updateStatus(@PathVariable("id")Long orderId, @RequestBody UpdateStatusDto status){
-        return ResponseEntity.ok(orderService.updateStatus(orderId,status));
+    public ResponseEntity<UpdateStatusDto> updateStatus(
+            @PathVariable("id") Long orderId,
+            @RequestBody UpdateStatusDto status
+    ) {
+        return ResponseEntity.ok(orderService.updateStatus(orderId, status));
     }
-    //cancel order
+
+    @Operation(
+            summary = "Cancel an order",
+            description = "Cancel an order by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Order canceled successfully"
+    )
     @DeleteMapping("{id}")
-    public ResponseEntity<String> cancelOrder(@PathVariable("id")Long orderId){
+    public ResponseEntity<String> cancelOrder(@PathVariable("id") Long orderId) {
         orderService.cancelOrder(orderId);
         return ResponseEntity.ok("Canceled order");
     }

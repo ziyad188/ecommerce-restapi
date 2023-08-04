@@ -1,5 +1,6 @@
 package ziyad.com.ecommercerestapi.controller;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,33 +18,76 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-    //create category
+
+    @Operation(
+            summary = "Create a category",
+            description = "Create a new category."
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Category created successfully"
+    )
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto){
+    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto) {
         return new ResponseEntity<>(categoryService.createCategory(categoryDto), HttpStatus.CREATED);
     }
-    //get category by id
+
+    @Operation(
+            summary = "Get a category by ID",
+            description = "Get a category by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Category found"
+    )
     @GetMapping("{id}")
-    public ResponseEntity<CategoryDto> getCategory(@PathVariable("id") Long categoryId){
+    public ResponseEntity<CategoryDto> getCategory(@PathVariable("id") Long categoryId) {
         return ResponseEntity.ok(categoryService.getCategory(categoryId));
     }
-    //get all category
+
+    @Operation(
+            summary = "Get all categories",
+            description = "Get all categories."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Categories found"
+    )
     @GetMapping()
-    public ResponseEntity<List<CategoryDto>> getAllCategory(){
+    public ResponseEntity<List<CategoryDto>> getAllCategory() {
         return ResponseEntity.ok(categoryService.getAllCategory());
     }
-    //update Category
+
+    @Operation(
+            summary = "Update a category",
+            description = "Update a category by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Category updated successfully"
+    )
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto categoryDto,@PathVariable("id") Long categoryId){
-        return ResponseEntity.ok(categoryService.updateCategory(categoryDto,categoryId));
+    public ResponseEntity<CategoryDto> updateCategory(
+            @RequestBody CategoryDto categoryDto,
+            @PathVariable("id") Long categoryId
+    ) {
+        return ResponseEntity.ok(categoryService.updateCategory(categoryDto, categoryId));
     }
-    //delete Category
+
+    @Operation(
+            summary = "Delete a category",
+            description = "Delete a category by its ID."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Category deleted successfully"
+    )
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> deleteCategory(@PathVariable("id") Long categoryId){
+    public ResponseEntity<String> deleteCategory(@PathVariable("id") Long categoryId) {
         categoryService.deleteCategory(categoryId);
-        return ResponseEntity.ok("Category deleted sucessfully");
+        return ResponseEntity.ok("Category deleted successfully");
     }
 }
