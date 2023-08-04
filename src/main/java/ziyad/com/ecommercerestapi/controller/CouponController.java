@@ -1,6 +1,7 @@
 package ziyad.com.ecommercerestapi.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +27,9 @@ public class CouponController {
     @ApiResponse(
             responseCode = "201",
             description = "Coupon created successfully"
+    )
+    @SecurityRequirement(
+            name = "Bear Authentication"
     )
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
@@ -54,6 +58,9 @@ public class CouponController {
             responseCode = "200",
             description = "Coupons found"
     )
+    @SecurityRequirement(
+            name = "Bear Authentication"
+    )
     @GetMapping()
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<CouponDto>> getAllCoupon() {
@@ -67,6 +74,9 @@ public class CouponController {
     @ApiResponse(
             responseCode = "200",
             description = "Coupon updated successfully"
+    )
+    @SecurityRequirement(
+            name = "Bear Authentication"
     )
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -84,6 +94,9 @@ public class CouponController {
     @ApiResponse(
             responseCode = "200",
             description = "Coupon deleted successfully"
+    )
+    @SecurityRequirement(
+            name = "Bear Authentication"
     )
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")

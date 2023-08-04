@@ -1,6 +1,7 @@
 package ziyad.com.ecommercerestapi.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -72,6 +73,9 @@ public class OrderController {
             responseCode = "200",
             description = "Orders found"
     )
+    @SecurityRequirement(
+            name = "Bear Authentication"
+    )
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<ResponseOrderDto>> getAllOrder() {
@@ -85,6 +89,9 @@ public class OrderController {
     @ApiResponse(
             responseCode = "200",
             description = "Order status updated successfully"
+    )
+    @SecurityRequirement(
+            name = "Bear Authentication"
     )
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{id}")

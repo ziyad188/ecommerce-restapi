@@ -1,23 +1,22 @@
 package ziyad.com.ecommercerestapi.payload;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ziyad.com.ecommercerestapi.entity.Product;
-import ziyad.com.ecommercerestapi.entity.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewDto {
+    @Schema(description = "ID of the review")
     private Long id;
+
+    @Schema(description = "Rating given in the review")
     private int rating;
 
+    @Schema(description = "Comment provided in the review")
     private String comment;
 }

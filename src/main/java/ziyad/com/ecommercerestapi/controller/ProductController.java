@@ -1,6 +1,7 @@
 package ziyad.com.ecommercerestapi.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +27,9 @@ public class ProductController {
     @ApiResponse(
             responseCode = "201",
             description = "Product created successfully"
+    )
+    @SecurityRequirement(
+            name = "Bear Authentication"
     )
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
@@ -67,6 +71,9 @@ public class ProductController {
             responseCode = "200",
             description = "Product updated successfully"
     )
+    @SecurityRequirement(
+            name = "Bear Authentication"
+    )
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductDto> updateProduct(
@@ -83,6 +90,9 @@ public class ProductController {
     @ApiResponse(
             responseCode = "200",
             description = "Product deleted successfully"
+    )
+    @SecurityRequirement(
+            name = "Bear Authentication"
     )
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")

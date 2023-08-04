@@ -1,30 +1,33 @@
 package ziyad.com.ecommercerestapi.payload;
 
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Date;
 
 public class ErrorDetails {
-        private Date date;
-        private String message;
-        private String details;
+    @Schema(description = "Date when the error occurred")
+    private Date date;
 
-        public ErrorDetails(Date date, String message, String details) {
-            this.date = date;
-            this.message = message;
-            this.details = details;
-        }
+    @Schema(description = "Error message")
+    private String message;
 
-        public Date getDate() {
-            return date;
-        }
+    @Schema(description = "Details about the error")
+    private String details;
 
-        public String getMessage() {
-            return message;
-        }
-
-        public String getDetails() {
-            return details;
-        }
-
+    public ErrorDetails(Date date, String message, String details) {
+        this.date = date;
+        this.message = message;
+        this.details = details;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+}
