@@ -8,6 +8,7 @@ import ziyad.com.ecommercerestapi.payload.ResponseAddressDto;
 import ziyad.com.ecommercerestapi.payload.ResponseCartDto;
 import ziyad.com.ecommercerestapi.service.CartService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -48,7 +49,7 @@ public class CartController {
     }
     //calculate total price
     @GetMapping("/price/{id}")
-    public ResponseEntity<Double> totalCartPrice(@PathVariable("id") Long userId){
+    public ResponseEntity<BigDecimal> totalCartPrice(@PathVariable("id") Long userId){
         return ResponseEntity.ok(cartService.calculateTotalPrice(userId));
     }
 

@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -31,7 +32,7 @@ public class Order {
     private String orderStatus;
     //map individual orderitems
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<OrderItem> orderItems;
+    private List<OrderItem> orderItems;
 //map to address
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "billing_address_id")

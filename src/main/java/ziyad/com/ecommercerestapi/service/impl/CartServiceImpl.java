@@ -134,13 +134,13 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public double calculateTotalPrice(Long userId) {
+    public BigDecimal calculateTotalPrice(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
         List<Cart> carts = cartRepository.findByUser(user);
 
         return carts.stream()
-                .map(cart -> cart.getQuantity()*cart.getProduct().getUnitPrice().doubleValue())
-                .reduce(0.0,Double::sum);
+                .map(cart -> BigDecimal.valueOf(cart.getQuantity()).multiply(cart.getProduct().getUnitPrice()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

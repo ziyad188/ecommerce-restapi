@@ -2,6 +2,7 @@ package ziyad.com.ecommercerestapi.service;
 
 import ziyad.com.ecommercerestapi.payload.ResponseCartDto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface CartService {
@@ -10,6 +11,6 @@ public interface CartService {
     ResponseCartDto updateCartQuntity(Long cartId,int quantity);
     void removeCartItem(Long cartId);
     void clearUserCart(Long userId);
-    double calculateTotalPrice(Long userId);
+    BigDecimal calculateTotalPrice(Long userId);
 
 }
