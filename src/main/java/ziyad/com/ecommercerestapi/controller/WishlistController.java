@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ziyad.com.ecommercerestapi.payload.ResponseWishlistDto;
-import ziyad.com.ecommercerestapi.payload.WishlistDto;
 import ziyad.com.ecommercerestapi.service.WishlistService;
 
 import java.util.List;

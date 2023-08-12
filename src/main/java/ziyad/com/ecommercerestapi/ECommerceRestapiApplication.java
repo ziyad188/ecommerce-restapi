@@ -11,11 +11,15 @@ import jakarta.annotation.PostConstruct;
 import lombok.Value;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ziyad.com.ecommercerestapi.entity.Roles;
+import ziyad.com.ecommercerestapi.repository.RolesRepository;
 
 @SpringBootApplication
 @OpenAPIDefinition(
@@ -38,7 +42,20 @@ import org.springframework.context.annotation.Configuration;
 				url = "https://github.com/ziyad188/blog-webserver.git"
 		)
 )
-public class ECommerceRestapiApplication {
+public class ECommerceRestapiApplication implements CommandLineRunner {
+	@Autowired
+	private RolesRepository rolesRepository;
+	@Override
+	public void run(String... args) throws Exception {
+		Roles adminRole = new Roles();
+		adminRole.setName("ROLE_ADMIN");
+		rolesRepository.save(adminRole);
+
+		Roles userRole = new Roles();
+		userRole.setName("ROLE_USER");
+		rolesRepository.save(userRole);
+	}
+
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
