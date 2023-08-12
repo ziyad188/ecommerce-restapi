@@ -43,7 +43,7 @@ To install the required dependencies for this project, you'll need [Java](https:
 
 ```sh
 mvn install
-
+```
 ## Usage
 After installing the dependencies, you can run the project using:
 mvn spring-boot:run
